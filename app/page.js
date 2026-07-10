@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
+import Link from 'next/link'
 import {
   Phone, MessageCircle, Menu, X, Sun, Moon, MapPin, Mail, Clock,
   Sparkles, Flame, Wind, Fan, Lamp, Gem, Star, Truck, Shield, Award,
@@ -17,6 +18,7 @@ import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useLanguage } from './providers'
 import { translations, BUSINESS } from '@/lib/i18n'
+import { orderedSlugs } from '@/lib/servicesData'
 
 const heroImg = 'https://images.unsplash.com/photo-1587271407850-8d438ca9fdf2?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0'
 const galleryImgs = [
@@ -81,7 +83,7 @@ function Navbar({ t, lang, setLang }) {
               <Sparkles className="w-5 h-5 text-maroon-900" />
             </div>
             <div className="hidden sm:block">
-              <div className="font-display font-bold text-base md:text-lg leading-tight text-gradient-maroon dark:text-gradient-gold">Dwarkadhish</div>
+              <div className="font-display font-bold text-base md:text-lg leading-tight text-gradient-maroon dark:text-gradient-gold">Dwarkadish</div>
               <div className="text-[10px] md:text-xs text-muted-foreground tracking-widest uppercase">Rental &amp; Decor</div>
             </div>
           </a>
@@ -123,7 +125,7 @@ function Navbar({ t, lang, setLang }) {
               <div className="p-6 flex items-center justify-between border-b border-border">
                 <div className="flex items-center gap-2">
                   <div className="w-9 h-9 rounded-xl bg-gold-gradient flex items-center justify-center"><Sparkles className="w-4 h-4 text-maroon-900" /></div>
-                  <span className="font-display font-bold text-gradient-maroon dark:text-gradient-gold">Dwarkadhish</span>
+                  <span className="font-display font-bold text-gradient-maroon dark:text-gradient-gold">Dwarkadish</span>
                 </div>
                 <button onClick={() => setOpen(false)} className="p-2 rounded-lg hover:bg-accent" aria-label="Close"><X className="w-5 h-5" /></button>
               </div>
@@ -232,26 +234,28 @@ function Services({ t, lang }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
           {t.services.items.map((s, i) => {
             const Icon = serviceIcons[i % serviceIcons.length]
+            const slug = orderedSlugs[i]
             return (
               <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-50px' }} transition={{ delay: i * 0.05, duration: 0.5 }} whileHover={{ y: -6 }}>
-                <Card className="group overflow-hidden h-full border-border/60 hover:border-gold-400/60 hover:shadow-luxe transition-all duration-300 bg-card">
-                  <div className="relative h-40 overflow-hidden">
-                    <Image src={serviceImgs[i % serviceImgs.length]} alt={s.title} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-maroon-950/80 via-maroon-900/20 to-transparent" />
-                    <div className="absolute top-3 right-3 w-10 h-10 rounded-xl bg-gold-gradient flex items-center justify-center shadow-lg">
-                      <Icon className="w-5 h-5 text-maroon-900" />
+                <Link href={`/services/${slug}`} className="block h-full">
+                  <Card className="group overflow-hidden h-full border-border/60 hover:border-gold-400/60 hover:shadow-luxe transition-all duration-300 bg-card cursor-pointer">
+                    <div className="relative h-40 overflow-hidden">
+                      <Image src={serviceImgs[i % serviceImgs.length]} alt={s.title} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-maroon-950/80 via-maroon-900/20 to-transparent" />
+                      <div className="absolute top-3 right-3 w-10 h-10 rounded-xl bg-gold-gradient flex items-center justify-center shadow-lg">
+                        <Icon className="w-5 h-5 text-maroon-900" />
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className={`font-display font-bold text-lg mb-2 ${lang === 'gu' ? 'font-gujarati' : ''}`}>{s.title}</h3>
-                    <p className={`text-sm text-muted-foreground leading-relaxed mb-4 ${lang === 'gu' ? 'font-gujarati' : ''}`}>{s.desc}</p>
-                    <a href={`https://wa.me/${BUSINESS.whatsapp}?text=Hi, I'm interested in ${s.title}.`} target="_blank" rel="noreferrer">
-                      <Button variant="ghost" size="sm" className={`text-primary group/btn hover:bg-primary hover:text-primary-foreground px-2 ${lang === 'gu' ? 'font-gujarati' : ''}`}>
-                        {t.services.inquire}<ArrowRight className="ml-1 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                      </Button>
-                    </a>
-                  </div>
-                </Card>
+                    <div className="p-5">
+                      <h3 className={`font-display font-bold text-lg mb-2 ${lang === 'gu' ? 'font-gujarati' : ''}`}>{s.title}</h3>
+                      <p className={`text-sm text-muted-foreground leading-relaxed mb-4 ${lang === 'gu' ? 'font-gujarati' : ''}`}>{s.desc}</p>
+                      <div className={`inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all ${lang === 'gu' ? 'font-gujarati' : ''}`}>
+                        {lang === 'gu' ? 'વિગતો જુઓ' : 'View Details'}
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </Card>
+                </Link>
               </motion.div>
             )
           })}
@@ -511,7 +515,7 @@ function Footer({ t, lang }) {
                 <Sparkles className="w-5 h-5 text-maroon-900" />
               </div>
               <div>
-                <div className="font-display font-bold text-lg text-gradient-maroon dark:text-gradient-gold">Dwarkadhish</div>
+                <div className="font-display font-bold text-lg text-gradient-maroon dark:text-gradient-gold">Dwarkadish</div>
                 <div className="text-xs text-muted-foreground tracking-widest uppercase">Rental &amp; Decor</div>
               </div>
             </div>
