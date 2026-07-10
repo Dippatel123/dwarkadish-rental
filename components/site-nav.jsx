@@ -47,7 +47,7 @@ export function SharedNavbar() {
             </div>
             <div className="hidden sm:block">
               <div className="font-display font-bold text-base md:text-lg leading-tight text-gradient-maroon dark:text-gradient-gold">Dwarkadish</div>
-              <div className="text-[10px] md:text-xs text-muted-foreground tracking-widest uppercase">Rental &amp; Decor</div>
+              <div className="text-[10px] md:text-xs text-muted-foreground tracking-widest uppercase">Rental</div>
             </div>
           </Link>
 

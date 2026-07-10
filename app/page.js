@@ -84,7 +84,7 @@ function Navbar({ t, lang, setLang }) {
             </div>
             <div className="hidden sm:block">
               <div className="font-display font-bold text-base md:text-lg leading-tight text-gradient-maroon dark:text-gradient-gold">Dwarkadish</div>
-              <div className="text-[10px] md:text-xs text-muted-foreground tracking-widest uppercase">Rental &amp; Decor</div>
+              <div className="text-[10px] md:text-xs text-muted-foreground tracking-widest uppercase">Rental</div>
             </div>
           </a>
 
@@ -516,7 +516,7 @@ function Footer({ t, lang }) {
               </div>
               <div>
                 <div className="font-display font-bold text-lg text-gradient-maroon dark:text-gradient-gold">Dwarkadish</div>
-                <div className="text-xs text-muted-foreground tracking-widest uppercase">Rental &amp; Decor</div>
+                <div className="text-xs text-muted-foreground tracking-widest uppercase">Rental</div>
               </div>
             </div>
             <p className={`text-muted-foreground max-w-md leading-relaxed ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.footer.tagline}</p>

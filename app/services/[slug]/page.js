@@ -127,76 +127,37 @@ export default function ServiceDetailPage({ params }) {
       {/* Description + Features */}
       <section className="py-16 md:py-24">
         <div className="container">
-          <div className="grid lg:grid-cols-5 gap-8 md:gap-12 items-start">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              className="lg:col-span-3"
-            >
-              <Badge className={`mb-4 bg-maroon-800/10 text-maroon-800 dark:bg-gold-500/10 dark:text-gold-400 border-none ${lang === 'gu' ? 'font-gujarati' : ''}`}>
-                {lang === 'gu' ? 'વિગતો' : 'About This Service'}
-              </Badge>
-              <h2 className={`font-display text-3xl md:text-4xl font-bold leading-tight mb-6 ${lang === 'gu' ? 'font-gujarati' : ''}`}>
-                {s.title}
-              </h2>
-              <p className={`text-base md:text-lg text-muted-foreground leading-relaxed mb-8 ${lang === 'gu' ? 'font-gujarati' : ''}`}>
-                {s.description}
-              </p>
+          {/* Description + Features (full width, no side form) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
+          >
+            <Badge className={`mb-4 bg-maroon-800/10 text-maroon-800 dark:bg-gold-500/10 dark:text-gold-400 border-none ${lang === 'gu' ? 'font-gujarati' : ''}`}>
+              {lang === 'gu' ? 'વિગતો' : 'About This Service'}
+            </Badge>
+            <h2 className={`font-display text-3xl md:text-4xl font-bold leading-tight mb-6 ${lang === 'gu' ? 'font-gujarati' : ''}`}>
+              {s.title}
+            </h2>
+            <p className={`text-base md:text-lg text-muted-foreground leading-relaxed mb-8 ${lang === 'gu' ? 'font-gujarati' : ''}`}>
+              {s.description}
+            </p>
 
-              <div className="space-y-3">
-                {s.features.map((f, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-                    transition={{ delay: i * 0.05 }}
-                    className="flex items-start gap-3"
-                  >
-                    <div className="w-6 h-6 mt-0.5 rounded-full bg-gold-gradient flex items-center justify-center flex-shrink-0 shadow-gold">
-                      <Check className="w-3.5 h-3.5 text-maroon-900" />
-                    </div>
-                    <span className={`text-base ${lang === 'gu' ? 'font-gujarati' : ''}`}>{f}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Quick Inquiry Form Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              className="lg:col-span-2 lg:sticky lg:top-28"
-            >
-              <Card className="p-6 md:p-7 border-gold-400/30 shadow-luxe bg-card">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-9 h-9 rounded-lg bg-gold-gradient flex items-center justify-center">
-                    <Send className="w-4 h-4 text-maroon-900" />
+            <div className="grid sm:grid-cols-2 gap-3">
+              {s.features.map((f, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  className="flex items-start gap-3"
+                >
+                  <div className="w-6 h-6 mt-0.5 rounded-full bg-gold-gradient flex items-center justify-center flex-shrink-0 shadow-gold">
+                    <Check className="w-3.5 h-3.5 text-maroon-900" />
                   </div>
-                  <h3 className={`font-display font-bold text-lg ${lang === 'gu' ? 'font-gujarati' : ''}`}>
-                    {lang === 'gu' ? 'ઝડપી પૂછપરછ' : 'Quick Inquiry'}
-                  </h3>
-                </div>
-                <p className={`text-xs text-muted-foreground mb-5 ${lang === 'gu' ? 'font-gujarati' : ''}`}>
-                  {lang === 'gu' ? 'ફોર્મ ભરો, અમે ટૂંક સમયમાં કૉલ કરીશું' : 'Fill in and we\'ll call you shortly'}
-                </p>
-                <form onSubmit={onSubmit} className="space-y-3">
-                  <Input placeholder={t.contact.name} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-                  <Input placeholder={t.contact.phone + ' *'} type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} required />
-                  <Input placeholder={t.contact.city} value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
-                  <Input placeholder={t.contact.date} type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
-                  <Textarea placeholder={t.contact.messagePh} rows={3} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
-                  <Button type="submit" disabled={loading} className={`w-full bg-maroon-800 hover:bg-gold-500 hover:text-maroon-900 text-white h-11 rounded-xl font-semibold transition-all ${lang === 'gu' ? 'font-gujarati' : ''}`}>
-                    {loading ? t.contact.sending : t.contact.submit}
-                  </Button>
-                </form>
-                <div className="mt-4 grid grid-cols-2 gap-2">
-                  <a href={`tel:${BUSINESS.phoneRaw}`}>
-                    <Button variant="outline" size="sm" className="w-full"><Phone className="w-4 h-4 mr-1" />{t.nav.call}</Button>
-                  </a>
-                  <a href={waLink} target="_blank" rel="noreferrer">
-                    <Button size="sm" className="w-full bg-emerald-500 hover:bg-emerald-600 text-white"><MessageCircle className="w-4 h-4 mr-1" />WhatsApp</Button>
-                  </a>
-                </div>
-              </Card>
-            </motion.div>
-          </div>
+                  <span className={`text-base ${lang === 'gu' ? 'font-gujarati' : ''}`}>{f}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
