@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useLanguage } from './providers'
 import { translations, BUSINESS } from '@/lib/i18n'
 import { orderedSlugs } from '@/lib/servicesData'
@@ -405,7 +406,8 @@ function InfoCard({ icon: Icon, label, value, href, color = 'gold', lang }) {
 }
 
 function ContactForm({ t, lang }) {
-  const [form, setForm] = useState({ name: '', phone: '', city: '', items: '', date: '', message: '' })
+  const today = new Date().toISOString().split('T')[0]
+  const [form, setForm] = useState({ name: '', phone: '', city: '', items: '', date: today, message: '' })
   const [loading, setLoading] = useState(false)
 
   const onSubmit = async (e) => {
@@ -424,7 +426,7 @@ function ContactForm({ t, lang }) {
       const data = await res.json()
       if (data.ok) {
         toast.success(t.contact.success)
-        setForm({ name: '', phone: '', city: '', items: '', date: '', message: '' })
+        setForm({ name: '', phone: '', city: '', items: '', date: today, message: '' })
       } else {
         throw new Error(data.error || 'Failed')
       }
@@ -460,7 +462,21 @@ function ContactForm({ t, lang }) {
                   </Field>
                 </div>
                 <Field label={t.contact.items} lang={lang}>
-                  <Input value={form.items} onChange={(e) => setForm({ ...form, items: e.target.value })} placeholder={t.contact.itemsPh} />
+                  <Select value={form.items} onValueChange={(v) => setForm({ ...form, items: v })}>
+                    <SelectTrigger className={lang === 'gu' ? 'font-gujarati' : ''}>
+                      <SelectValue placeholder={t.contact.itemsPh} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {t.services.items.map((svc, idx) => (
+                        <SelectItem key={idx} value={svc.title} className={lang === 'gu' ? 'font-gujarati' : ''}>
+                          {svc.title}
+                        </SelectItem>
+                      ))}
+                      <SelectItem value={lang === 'gu' ? 'બહુવિધ / અન્ય' : 'Multiple / Other'} className={lang === 'gu' ? 'font-gujarati' : ''}>
+                        {lang === 'gu' ? 'બહુવિધ / અન્ય' : 'Multiple / Other'}
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
                 </Field>
                 <Field label={t.contact.message} lang={lang}>
                   <Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder={t.contact.messagePh} rows={4} />
