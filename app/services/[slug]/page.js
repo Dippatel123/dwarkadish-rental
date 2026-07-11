@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import {
   Phone, MessageCircle, ArrowLeft, ArrowRight, Check, Sparkles,
-  Star, Tag, Send, ChevronRight,
+  Star, Send, ChevronRight, Download,
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -18,7 +18,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useLanguage } from '@/app/providers'
 import { translations, BUSINESS } from '@/lib/i18n'
 import { servicesData, orderedSlugs } from '@/lib/servicesData'
-import { SharedNavbar, FloatingButtons } from '@/components/site-nav'
+import { SharedNavbar, FloatingButtons, SiteFooter } from '@/components/site-nav'
 
 export default function ServiceDetailPage({ params }) {
   const resolved = use(params)
@@ -88,9 +88,9 @@ export default function ServiceDetailPage({ params }) {
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-            className={`font-display text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-[1.05] tracking-tight max-w-4xl ${lang === 'gu' ? 'font-gujarati' : ''}`}
+            className={`font-display text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-[1.25] tracking-tight max-w-4xl ${lang === 'gu' ? 'font-gujarati' : ''}`}
           >
-            <span className="text-gradient-gold">{s.title}</span>
+            <span className="text-gradient-gold inline-block pb-1">{s.title}</span>
           </motion.h1>
 
           <motion.p
@@ -111,15 +111,17 @@ export default function ServiceDetailPage({ params }) {
               </Button>
             </a>
             <a href={`tel:${BUSINESS.phoneRaw}`}>
-              <Button size="lg" variant="outline" className={`border-white/40 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 h-12 md:h-13 px-6 rounded-xl font-semibold ${lang === 'gu' ? 'font-gujarati' : ''}`}>
+              <Button size="lg" variant="outline" className={`border-white/40 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 hover:text-white h-12 md:h-13 px-6 rounded-xl font-semibold ${lang === 'gu' ? 'font-gujarati' : ''}`}>
                 <Phone className="mr-2 h-4 w-4" />{t.hero.cta2}
               </Button>
             </a>
-            <div className={`flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white ${lang === 'gu' ? 'font-gujarati' : ''}`}>
-              <Tag className="w-4 h-4 text-gold-300" />
-              <span className="text-sm font-medium">{lang === 'gu' ? 'શરૂઆત' : 'Starting from'}</span>
-              <span className="font-bold text-gold-300">{s.priceFrom}</span>
-            </div>
+            {service.brochure && (
+              <a href={service.brochure} download target="_blank" rel="noreferrer">
+                <Button size="lg" variant="outline" className={`border-white/40 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 hover:text-white h-12 md:h-13 px-6 rounded-xl font-semibold ${lang === 'gu' ? 'font-gujarati' : ''}`}>
+                  <Download className="mr-2 h-4 w-4" />{t.hero.cta3}
+                </Button>
+              </a>
+            )}
           </motion.div>
         </div>
       </section>
@@ -298,6 +300,7 @@ export default function ServiceDetailPage({ params }) {
         </div>
       </section>
 
+      <SiteFooter t={t} lang={lang} />
       <FloatingButtons />
     </main>
   )

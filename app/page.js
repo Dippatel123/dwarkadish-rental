@@ -20,6 +20,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useLanguage } from './providers'
 import { translations, BUSINESS } from '@/lib/i18n'
 import { orderedSlugs } from '@/lib/servicesData'
+import morpankhLogo from '@/assets/morpankh-logo.png'
+import { SiteFooter } from '@/components/site-nav'
 
 const heroImg = 'https://images.unsplash.com/photo-1587271407850-8d438ca9fdf2?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0'
 const galleryImgs = [
@@ -78,32 +80,32 @@ function Navbar({ t, lang, setLang }) {
         animate={{ y: 0, opacity: 1 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass shadow-sm' : 'bg-transparent'}`}
       >
-        <div className="container flex items-center justify-between h-16 md:h-20">
-          <a href="#home" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl bg-gold-gradient flex items-center justify-center shadow-gold">
-              <Sparkles className="w-5 h-5 text-maroon-900" />
+        <div className="container flex items-center justify-between h-20 md:h-24">
+          <a href="#home" className="flex items-center gap-1 group">
+            <div className="relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0">
+              <Image src={morpankhLogo} alt="Dwarkadish Rental" fill className="object-contain" />
             </div>
             <div className="hidden sm:block">
-              <div className="font-display font-bold text-base md:text-lg leading-tight text-gradient-maroon dark:text-gradient-gold">Dwarkadish</div>
-              <div className="text-[10px] md:text-xs text-muted-foreground tracking-widest uppercase">Rental</div>
+              <div className={`font-display font-bold text-base md:text-lg leading-tight ${scrolled ? 'text-gradient-maroon dark:text-gradient-gold' : 'text-white'}`}>Dwarkadish</div>
+              <div className={`text-[10px] md:text-xs tracking-widest uppercase ${scrolled ? 'text-muted-foreground' : 'text-white/70'}`}>Rental</div>
             </div>
           </a>
 
           <nav className="hidden lg:flex items-center gap-1">
             {nav.map((n) => (
-              <a key={n.href} href={n.href} className={`px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-lg hover:bg-accent ${lang === 'gu' ? 'font-gujarati' : ''}`}>
+              <a key={n.href} href={n.href} className={`px-4 py-2 text-sm font-medium hover:text-primary transition-colors rounded-lg hover:bg-accent ${scrolled ? 'text-foreground/80' : 'text-white/90'} ${lang === 'gu' ? 'font-gujarati' : ''}`}>
                 {n.label}
               </a>
             ))}
           </nav>
 
           <div className="flex items-center gap-2">
-            <button onClick={() => setLang(lang === 'en' ? 'gu' : 'en')} className="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-accent text-sm font-medium transition-colors" aria-label="Language">
+            <button onClick={() => setLang(lang === 'en' ? 'gu' : 'en')} className={`hidden md:flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-accent text-sm font-medium transition-colors ${scrolled ? 'text-foreground' : 'text-white/90'}`} aria-label="Language">
               <Languages className="w-4 h-4" />
               <span className={lang === 'gu' ? 'font-gujarati' : ''}>{lang === 'en' ? 'ગુજરાતી' : 'English'}</span>
             </button>
             {mounted && (
-              <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="p-2 rounded-lg hover:bg-accent transition-colors" aria-label="Theme">
+              <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className={`p-2 rounded-lg hover:bg-accent transition-colors ${scrolled ? 'text-foreground' : 'text-white/90'}`} aria-label="Theme">
                 {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
             )}
@@ -113,7 +115,7 @@ function Navbar({ t, lang, setLang }) {
             <a href={`tel:${BUSINESS.phoneRaw}`} className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-maroon-800 hover:bg-gold-500 hover:text-maroon-900 text-white text-sm font-medium transition-all">
               <Phone className="w-4 h-4" /><span className="hidden xl:inline">{t.nav.call}</span>
             </a>
-            <button onClick={() => setOpen(true)} className="lg:hidden p-2 rounded-lg hover:bg-accent" aria-label="Menu"><Menu className="w-5 h-5" /></button>
+            <button onClick={() => setOpen(true)} className={`lg:hidden p-2 rounded-lg hover:bg-accent ${scrolled ? 'text-foreground' : 'text-white/90'}`} aria-label="Menu"><Menu className="w-5 h-5" /></button>
           </div>
         </div>
       </motion.header>
@@ -124,8 +126,8 @@ function Navbar({ t, lang, setLang }) {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setOpen(false)} className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm lg:hidden" />
             <motion.aside initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', damping: 25, stiffness: 220 }} className="fixed top-0 right-0 bottom-0 z-[70] w-[85%] max-w-sm bg-background border-l border-border shadow-2xl lg:hidden">
               <div className="p-6 flex items-center justify-between border-b border-border">
-                <div className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-xl bg-gold-gradient flex items-center justify-center"><Sparkles className="w-4 h-4 text-maroon-900" /></div>
+                <div className="flex items-center gap-1">
+                  <div className="relative w-11 h-11 flex-shrink-0"><Image src={morpankhLogo} alt="Dwarkadish Rental" fill className="object-contain" /></div>
                   <span className="font-display font-bold text-gradient-maroon dark:text-gradient-gold">Dwarkadish</span>
                 </div>
                 <button onClick={() => setOpen(false)} className="p-2 rounded-lg hover:bg-accent" aria-label="Close"><X className="w-5 h-5" /></button>
@@ -162,7 +164,7 @@ function Hero({ t, lang }) {
   const opacity = useTransform(scrollY, [0, 400], [1, 0.3])
 
   return (
-    <section id="home" className="relative min-h-[100svh] flex items-center overflow-hidden pt-20">
+    <section id="home" className="relative min-h-[100svh] flex items-center overflow-hidden pt-20 md:pt-24">
       <motion.div style={{ y }} className="absolute inset-0 z-0">
         <Image src={heroImg} alt="Wedding decoration" fill priority className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-br from-maroon-950/80 via-maroon-900/70 to-black/80" />
@@ -177,13 +179,13 @@ function Hero({ t, lang }) {
             </Badge>
           </motion.div>
 
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className={`font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight ${lang === 'gu' ? 'font-gujarati' : ''}`}>
-            {t.hero.title1}{' '}<span className="text-gradient-gold italic">{t.hero.title2}</span>
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className={`font-display text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.25] tracking-tight ${lang === 'gu' ? 'font-gujarati' : ''}`}>
+            {t.hero.title1}{' '}<span className="text-gradient-gold italic inline-block leading-[1.15] pb-1">{t.hero.title2}</span>
             <br />
-            <span className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-light text-white/90">{t.hero.title3}</span>
+            <span className="text-xl sm:text-2xl md:text-5xl lg:text-6xl font-light text-white/90">{t.hero.title3}</span>
           </motion.h1>
 
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className={`mt-6 md:mt-8 text-base md:text-xl text-white/80 max-w-2xl leading-relaxed ${lang === 'gu' ? 'font-gujarati' : ''}`}>
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className={`mt-6 md:mt-8 text-sm sm:text-base md:text-xl text-white/80 max-w-2xl leading-relaxed ${lang === 'gu' ? 'font-gujarati' : ''}`}>
             {t.hero.subtitle}
           </motion.p>
 
@@ -195,7 +197,7 @@ function Hero({ t, lang }) {
               </Button>
             </a>
             <a href={`tel:${BUSINESS.phoneRaw}`}>
-              <Button size="lg" variant="outline" className={`border-white/40 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 h-12 md:h-14 px-6 md:px-8 text-sm md:text-base font-semibold rounded-xl ${lang === 'gu' ? 'font-gujarati' : ''}`}>
+              <Button size="lg" variant="outline" className={`border-white/40 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 hover:text-white h-12 md:h-14 px-6 md:px-8 text-sm md:text-base font-semibold rounded-xl ${lang === 'gu' ? 'font-gujarati' : ''}`}>
                 <Phone className="mr-2 h-4 w-4 md:h-5 md:w-5" />{t.hero.cta2}
               </Button>
             </a>
@@ -221,8 +223,8 @@ function SectionHeader({ badge, title, subtitle, lang, align = 'center' }) {
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className={`mb-10 md:mb-14 ${align === 'center' ? 'text-center max-w-3xl mx-auto' : ''}`}>
       <Badge className={`mb-4 bg-maroon-800/10 text-maroon-800 dark:bg-gold-500/10 dark:text-gold-400 border-none px-3 py-1 ${lang === 'gu' ? 'font-gujarati' : ''}`}>{badge}</Badge>
-      <h2 className={`font-display text-3xl md:text-5xl font-bold leading-tight tracking-tight ${lang === 'gu' ? 'font-gujarati' : ''}`}>{title}</h2>
-      {subtitle && <p className={`mt-4 text-muted-foreground text-base md:text-lg ${lang === 'gu' ? 'font-gujarati' : ''}`}>{subtitle}</p>}
+      <h2 className={`font-display text-2xl sm:text-3xl md:text-5xl font-bold leading-tight tracking-tight ${lang === 'gu' ? 'font-gujarati' : ''}`}>{title}</h2>
+      {subtitle && <p className={`mt-4 text-muted-foreground text-sm sm:text-base md:text-lg ${lang === 'gu' ? 'font-gujarati' : ''}`}>{subtitle}</p>}
     </motion.div>
   )
 }
@@ -301,9 +303,9 @@ function Gallery({ t, lang }) {
     <section id="gallery" className="py-20 md:py-32">
       <div className="container">
         <SectionHeader badge={t.gallery.badge} title={t.gallery.title} subtitle={t.gallery.subtitle} lang={lang} />
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 grid-flow-dense auto-rows-[140px] sm:auto-rows-[160px] md:auto-rows-[170px] lg:auto-rows-[190px]">
           {galleryImgs.map((src, i) => (
-            <motion.button key={i} onClick={() => setActive(src)} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 4) * 0.05 }} className={`relative overflow-hidden rounded-2xl group cursor-pointer ${i % 5 === 0 ? 'row-span-2 aspect-[3/4]' : 'aspect-square'}`}>
+            <motion.button key={i} onClick={() => setActive(src)} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (i % 4) * 0.05 }} className={`relative overflow-hidden rounded-2xl group cursor-pointer ${i % 5 === 0 ? 'row-span-2' : 'row-span-1'}`}>
               <Image src={src} alt="Gallery" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-maroon-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-gold-gradient flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -335,24 +337,24 @@ function About({ t, lang }) {
   ]
   return (
     <section id="about" className="py-20 md:py-32 relative">
-      <div className="container">
-        <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
-          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
+      <div className="container min-w-0">
+        <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-center min-w-0">
+          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative min-w-0">
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-luxe">
               <Image src={galleryImgs[7]} alt="About" fill className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-maroon-950/60 to-transparent" />
             </div>
-            <div className="absolute -bottom-6 -right-6 md:bottom-8 md:-right-8 w-32 h-32 md:w-40 md:h-40 rounded-3xl bg-gold-gradient shadow-gold flex flex-col items-center justify-center text-maroon-900 rotate-3">
+            <div className="absolute -bottom-4 right-2 sm:-right-6 md:bottom-8 md:-right-8 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-3xl bg-gold-gradient shadow-gold flex flex-col items-center justify-center text-maroon-900 rotate-3">
               <div className="font-display text-3xl md:text-4xl font-bold">10+</div>
               <div className={`text-xs md:text-sm font-medium text-center px-2 ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.about.exp}</div>
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="min-w-0">
             <Badge className={`mb-4 bg-maroon-800/10 text-maroon-800 dark:bg-gold-500/10 dark:text-gold-400 border-none ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.about.badge}</Badge>
-            <h2 className={`font-display text-3xl md:text-5xl font-bold mb-6 leading-tight ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.about.title}</h2>
-            <p className={`text-muted-foreground text-base md:text-lg leading-relaxed mb-4 ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.about.p1}</p>
-            <p className={`text-muted-foreground text-base md:text-lg leading-relaxed mb-8 ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.about.p2}</p>
+            <h2 className={`font-display text-2xl sm:text-3xl md:text-5xl font-bold mb-6 leading-tight ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.about.title}</h2>
+            <p className={`text-muted-foreground text-sm sm:text-base md:text-lg leading-relaxed mb-4 ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.about.p1}</p>
+            <p className={`text-muted-foreground text-sm sm:text-base md:text-lg leading-relaxed mb-8 ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.about.p2}</p>
 
             <div className="grid grid-cols-2 gap-4 mb-8">
               <Card className="p-5 border-gold-400/30 bg-gold-500/5">
@@ -402,7 +404,7 @@ function InfoCard({ icon: Icon, label, value, href, color = 'gold', lang }) {
       {href && <ChevronRight className="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />}
     </Card>
   )
-  return href ? <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">{content}</a> : content
+  return href ? <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" className="block">{content}</a> : content
 }
 
 function ContactForm({ t, lang }) {
@@ -439,11 +441,11 @@ function ContactForm({ t, lang }) {
 
   return (
     <section id="contact" className="py-20 md:py-32 relative">
-      <div className="container">
-        <div className="grid lg:grid-cols-5 gap-8 md:gap-12">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:col-span-3">
+      <div className="container min-w-0">
+        <div className="grid lg:grid-cols-5 gap-8 md:gap-12 min-w-0">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:col-span-3 min-w-0">
             <SectionHeader badge={t.contact.badge} title={t.contact.title} subtitle={t.contact.subtitle} lang={lang} align="left" />
-            <Card className="p-6 md:p-8 border-border/60 shadow-luxe bg-card">
+            <Card className="p-4 sm:p-6 md:p-8 border-border/60 shadow-luxe bg-card min-w-0">
               <form onSubmit={onSubmit} className="space-y-5">
                 <div className="grid md:grid-cols-2 gap-4">
                   <Field label={t.contact.name} lang={lang}>
@@ -490,10 +492,10 @@ function ContactForm({ t, lang }) {
             </Card>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:col-span-2 space-y-4">
-            <div className="mb-6">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:col-span-2 flex flex-col gap-4 min-w-0">
+            <div className="mb-2">
               <Badge className={`mb-3 bg-maroon-800/10 text-maroon-800 dark:bg-gold-500/10 dark:text-gold-400 border-none ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.contactInfo.badge}</Badge>
-              <h3 className={`font-display text-2xl md:text-3xl font-bold ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.contactInfo.title}</h3>
+              <h3 className={`font-display text-xl sm:text-2xl md:text-3xl font-bold ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.contactInfo.title}</h3>
             </div>
             <InfoCard icon={Phone} label={t.contactInfo.phone} value={BUSINESS.phone} href={`tel:${BUSINESS.phoneRaw}`} lang={lang} />
             <InfoCard icon={MessageCircle} label={t.contactInfo.whatsapp} value={BUSINESS.phone} href={`https://wa.me/${BUSINESS.whatsapp}`} color="emerald" lang={lang} />
@@ -501,7 +503,7 @@ function ContactForm({ t, lang }) {
             <InfoCard icon={MapPin} label={t.contactInfo.location} value={BUSINESS.location} href={BUSINESS.mapsUrl} lang={lang} />
             <InfoCard icon={Clock} label={t.contactInfo.hours} value={t.contactInfo.hoursValue} lang={lang} />
 
-            <div className="grid grid-cols-2 gap-3 pt-2">
+            <div className="grid grid-cols-2 gap-3 pt-3">
               <a href={`tel:${BUSINESS.phoneRaw}`} className="w-full">
                 <Button className={`w-full bg-maroon-800 hover:bg-maroon-900 text-white rounded-xl h-11 ${lang === 'gu' ? 'font-gujarati' : ''}`}>
                   <Phone className="w-4 h-4 mr-2" /> {t.contactInfo.callBtn}
@@ -517,50 +519,6 @@ function ContactForm({ t, lang }) {
         </div>
       </div>
     </section>
-  )
-}
-
-function Footer({ t, lang }) {
-  return (
-    <footer className="border-t border-border bg-accent/30 pt-16 pb-8">
-      <div className="container">
-        <div className="grid md:grid-cols-4 gap-8 mb-10">
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gold-gradient flex items-center justify-center shadow-gold">
-                <Sparkles className="w-5 h-5 text-maroon-900" />
-              </div>
-              <div>
-                <div className="font-display font-bold text-lg text-gradient-maroon dark:text-gradient-gold">Dwarkadish</div>
-                <div className="text-xs text-muted-foreground tracking-widest uppercase">Rental</div>
-              </div>
-            </div>
-            <p className={`text-muted-foreground max-w-md leading-relaxed ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.footer.tagline}</p>
-          </div>
-          <div>
-            <h4 className={`font-semibold mb-4 ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.footer.quickLinks}</h4>
-            <ul className={`space-y-2 text-sm text-muted-foreground ${lang === 'gu' ? 'font-gujarati' : ''}`}>
-              <li><a href="#home" className="hover:text-primary transition-colors">{t.nav.home}</a></li>
-              <li><a href="#services" className="hover:text-primary transition-colors">{t.footer.services}</a></li>
-              <li><a href="#gallery" className="hover:text-primary transition-colors">{t.nav.gallery}</a></li>
-              <li><a href="#about" className="hover:text-primary transition-colors">{t.nav.about}</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className={`font-semibold mb-4 ${lang === 'gu' ? 'font-gujarati' : ''}`}>{t.footer.contact}</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li className="flex items-start gap-2"><Phone className="w-4 h-4 mt-0.5 flex-shrink-0" />{BUSINESS.phone}</li>
-              <li className="flex items-start gap-2"><Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />{BUSINESS.email}</li>
-              <li className={`flex items-start gap-2 ${lang === 'gu' ? 'font-gujarati' : ''}`}><MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />{BUSINESS.location}</li>
-            </ul>
-          </div>
-        </div>
-        <div className={`pt-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground ${lang === 'gu' ? 'font-gujarati' : ''}`}>
-          <div>© {new Date().getFullYear()} {BUSINESS.name}. {t.footer.rights}</div>
-          <div className="flex items-center gap-1">Made with <Heart className="w-3 h-3 text-maroon-600 fill-maroon-600" /> in Gujarat</div>
-        </div>
-      </div>
-    </footer>
   )
 }
 
@@ -591,7 +549,7 @@ const App = () => {
       <Gallery t={t} lang={lang} />
       <About t={t} lang={lang} />
       <ContactForm t={t} lang={lang} />
-      <Footer t={t} lang={lang} />
+      <SiteFooter t={t} lang={lang} />
       <FloatingButtons />
     </main>
   )

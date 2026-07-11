@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { MongoClient } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
+import nodemailer from 'nodemailer'
 
 const uri = process.env.MONGO_URL
 const dbName = process.env.DB_NAME || 'dwarkadhish_rental'
@@ -12,6 +13,40 @@ async function getDb() {
     await cachedClient.connect()
   }
   return cachedClient.db(dbName)
+}
+
+let cachedTransporter = null
+function getTransporter() {
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) return null
+  if (!cachedTransporter) {
+    cachedTransporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+    })
+  }
+  return cachedTransporter
+}
+
+async function sendInquiryEmail(doc) {
+  const transporter = getTransporter()
+  if (!transporter) return
+  const to = process.env.CONTACT_TO_EMAIL || process.env.GMAIL_USER
+  await transporter.sendMail({
+    from: `"Dwarkadish Rental" <${process.env.GMAIL_USER}>`,
+    to,
+    subject: `New Inquiry from ${doc.name}`,
+    text: [
+      `Name: ${doc.name}`,
+      `Phone: ${doc.phone}`,
+      `City: ${doc.city || '-'}`,
+      `Event Date: ${doc.date || '-'}`,
+      `Required Items: ${doc.items || '-'}`,
+      `Message: ${doc.message || '-'}`,
+    ].join('\n'),
+  })
 }
 
 function json(data, status = 200) {
@@ -70,6 +105,11 @@ export async function POST(request, { params }) {
         status: 'new',
       }
       await db.collection('inquiries').insertOne(doc)
+      try {
+        await sendInquiryEmail(doc)
+      } catch (emailError) {
+        console.error('Failed to send inquiry email:', emailError.message)
+      }
       return json({ ok: true, inquiry: doc })
     }
     return json({ ok: false, error: 'Not found' }, 404)
