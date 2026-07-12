@@ -330,9 +330,9 @@ function Gallery({ t, lang }) {
 
 function About({ t, lang }) {
   const stats = [
-    { value: '10+', label: t.about.exp },
+    { value: '15+', label: t.about.exp },
     { value: '500+', label: t.about.events },
-    { value: '25+', label: t.about.cities },
+    { value: '150+', label: t.about.cities },
     { value: '1000+', label: t.about.happy },
   ]
   return (
