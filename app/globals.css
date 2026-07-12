@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light — "Ivory Blush": warm ivory background, royal maroon primary, champagne gold accents */
+    --background: 35 32% 97%;              /* #FAF7F2 warm ivory */
+    --foreground: 20 12% 12%;              /* warm dark */
+    --card: 0 0% 100%;                     /* pure white */
+    --card-foreground: 20 12% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 12% 12%;
+    --primary: 351 59% 30%;                /* royal maroon #7A1F2B */
+    --primary-foreground: 40 45% 94%;      /* soft cream */
+    --secondary: 40 60% 55%;               /* champagne gold */
+    --secondary-foreground: 351 60% 20%;
+    --muted: 35 28% 93%;                   /* peachy cream */
+    --muted-foreground: 20 12% 42%;        /* warm gray */
+    --accent: 40 55% 90%;                  /* soft peach */
+    --accent-foreground: 351 59% 25%;
+    --destructive: 0 84% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 25% 87%;                  /* warm tan */
+    --input: 30 25% 87%;
+    --ring: 351 59% 30%;
+    --radius: 0.75rem;
+  }
+  .dark {
+    /* Dark — "Midnight Wine": deep wine-black, warm champagne gold */
+    --background: 345 32% 6%;              /* #170D11 deep wine-black */
+    --foreground: 40 40% 94%;              /* warm ivory */
+    --card: 345 25% 11%;                   /* rich wine */
+    --card-foreground: 40 40% 94%;
+    --popover: 345 25% 11%;
+    --popover-foreground: 40 40% 94%;
+    --primary: 42 85% 66%;                 /* warm champagne gold #F0C674 */
+    --primary-foreground: 345 40% 8%;
+    --secondary: 351 45% 38%;              /* deep maroon */
+    --secondary-foreground: 42 85% 66%;
+    --muted: 345 22% 14%;                  /* subtle wine */
+    --muted-foreground: 40 18% 68%;        /* warm muted */
+    --accent: 345 25% 17%;                 /* slightly lighter wine */
+    --accent-foreground: 42 85% 66%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 345 20% 20%;
+    --input: 345 20% 20%;
+    --ring: 42 85% 66%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  html { scroll-behavior: smooth; }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-background/60 backdrop-blur-xl border-b border-border/40;
+  }
+  .glass-card {
+    @apply bg-card/70 backdrop-blur-md border border-border/50;
+  }
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #D4AF37 0%, #F5C542 50%, #B48717 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-maroon {
+    background: linear-gradient(135deg, #7A1F2B 0%, #B3283B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .shadow-luxe {
+    box-shadow: 0 10px 40px -12px rgba(122, 31, 43, 0.25);
+  }
+  .shadow-gold {
+    box-shadow: 0 10px 40px -12px rgba(212, 175, 55, 0.4);
+  }
+  .bg-grid {
+    background-image: radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0);
+    background-size: 32px 32px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: hsl(var(--muted)); }
+::-webkit-scrollbar-thumb { background: hsl(var(--primary) / 0.5); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary)); }
