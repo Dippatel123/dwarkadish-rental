@@ -140,7 +140,7 @@ function Navbar({ t, lang, setLang }) {
             <div className="relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0">
               <Image
                 src={morpankhLogo}
-                alt="Dwarkadish Rental"
+                alt="Dwarkadhish Rental"
                 fill
                 className="object-contain"
               />
@@ -149,7 +149,7 @@ function Navbar({ t, lang, setLang }) {
               <div
                 className={`font-display font-bold text-base md:text-lg leading-tight ${scrolled ? "text-gradient-maroon dark:text-gradient-gold" : "text-white"}`}
               >
-                Dwarkadish
+                Dwarkadhish
               </div>
               <div
                 className={`text-[10px] md:text-xs tracking-widest uppercase ${scrolled ? "text-muted-foreground" : "text-white/70"}`}
@@ -244,13 +244,13 @@ function Navbar({ t, lang, setLang }) {
                   <div className="relative w-11 h-11 flex-shrink-0">
                     <Image
                       src={morpankhLogo}
-                      alt="Dwarkadish Rental"
+                      alt="Dwarkadhish Rental"
                       fill
                       className="object-contain"
                     />
                   </div>
                   <span className="font-display font-bold text-gradient-maroon dark:text-gradient-gold">
-                    Dwarkadish
+                    Dwarkadhish
                   </span>
                 </div>
                 <button
@@ -879,7 +879,7 @@ function ContactForm({ t, lang }) {
                     />
                   </Field>
                 </div>
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-4 min-w-0">
                   <Field label={t.contact.city} lang={lang}>
                     <Input
                       value={form.city}
@@ -896,6 +896,7 @@ function ContactForm({ t, lang }) {
                       onChange={(e) =>
                         setForm({ ...form, date: e.target.value })
                       }
+                      className="w-full min-w-0 [color-scheme:light] dark:[color-scheme:dark]"
                     />
                   </Field>
                 </div>

@@ -35,7 +35,7 @@ async function sendInquiryEmail(doc) {
   if (!transporter) return
   const to = process.env.CONTACT_TO_EMAIL || process.env.GMAIL_USER
   await transporter.sendMail({
-    from: `"Dwarkadish Rental" <${process.env.GMAIL_USER}>`,
+    from: `"Dwarkadhish Rental" <${process.env.GMAIL_USER}>`,
     to,
     subject: `New Inquiry from ${doc.name}`,
     text: [

@@ -45,10 +45,10 @@ export function SharedNavbar() {
         <div className="container flex items-center justify-between h-20 md:h-24">
           <Link href="/" className="flex items-center gap-1 group">
             <div className="relative w-16 h-16 md:w-20 md:h-20 flex-shrink-0">
-              <Image src={morpankhLogo} alt="Dwarkadish Rental" fill className="object-contain" />
+              <Image src={morpankhLogo} alt="Dwarkadhish Rental" fill className="object-contain" />
             </div>
             <div className="hidden sm:block">
-              <div className={`font-display font-bold text-base md:text-lg leading-tight ${scrolled ? 'text-gradient-maroon dark:text-gradient-gold' : 'text-white'}`}>Dwarkadish</div>
+              <div className={`font-display font-bold text-base md:text-lg leading-tight ${scrolled ? 'text-gradient-maroon dark:text-gradient-gold' : 'text-white'}`}>Dwarkadhish</div>
               <div className={`text-[10px] md:text-xs tracking-widest uppercase ${scrolled ? 'text-muted-foreground' : 'text-white/70'}`}>Rental</div>
             </div>
           </Link>
@@ -89,8 +89,8 @@ export function SharedNavbar() {
             <motion.aside initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', damping: 25, stiffness: 220 }} className="fixed top-0 right-0 bottom-0 z-[70] w-[85%] max-w-sm bg-background border-l border-border shadow-2xl lg:hidden">
               <div className="p-6 flex items-center justify-between border-b border-border">
                 <div className="flex items-center gap-1">
-                  <div className="relative w-11 h-11 flex-shrink-0"><Image src={morpankhLogo} alt="Dwarkadish Rental" fill className="object-contain" /></div>
-                  <span className="font-display font-bold text-gradient-maroon dark:text-gradient-gold">Dwarkadish</span>
+                  <div className="relative w-11 h-11 flex-shrink-0"><Image src={morpankhLogo} alt="Dwarkadhish Rental" fill className="object-contain" /></div>
+                  <span className="font-display font-bold text-gradient-maroon dark:text-gradient-gold">Dwarkadhish</span>
                 </div>
                 <button onClick={() => setOpen(false)} className="p-2 rounded-lg hover:bg-accent" aria-label="Close"><X className="w-5 h-5" /></button>
               </div>
@@ -128,10 +128,10 @@ export function SiteFooter({ t, lang }) {
           <div className="md:col-span-2">
             <div className="flex items-center gap-1 mb-4">
               <div className="relative w-16 h-16 flex-shrink-0">
-                <Image src={morpankhLogo} alt="Dwarkadish Rental" fill className="object-contain" />
+                <Image src={morpankhLogo} alt="Dwarkadhish Rental" fill className="object-contain" />
               </div>
               <div>
-                <div className="font-display font-bold text-xl text-gradient-maroon dark:text-gradient-gold">Dwarkadish</div>
+                <div className="font-display font-bold text-xl text-gradient-maroon dark:text-gradient-gold">Dwarkadhish</div>
                 <div className="text-sm text-muted-foreground tracking-widest uppercase">Rental</div>
               </div>
             </div>

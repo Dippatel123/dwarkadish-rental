@@ -24,11 +24,11 @@ const playfair = Playfair_Display({
 })
 
 export const metadata = {
-  title: 'Dwarkadish Rental | Premium Wedding Decoration Rental Gujarat',
+  title: 'Dwarkadhish Rental | Premium Wedding Decoration Rental Gujarat',
   description: 'Premium wedding & event decoration rentals in Gujarat. Chandeliers, decorative diyas, coolers, heaters, fans, mandap decor & more at affordable prices. On-time delivery.',
-  keywords: 'wedding decoration rental, chandelier rental Gujarat, cooler rental, heater rental, fan rental, wedding rental services, Dwarkadish Rental, mandap decor, diya rental',
+  keywords: 'wedding decoration rental, chandelier rental Gujarat, cooler rental, heater rental, fan rental, wedding rental services, Dwarkadhish Rental, mandap decor, diya rental',
   openGraph: {
-    title: 'Dwarkadish Rental',
+    title: 'Dwarkadhish Rental',
     description: 'Make your wedding beautiful without buying expensive decor. Premium rental across Gujarat.',
     type: 'website',
     locale: 'en_IN',

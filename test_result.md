@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Dwarkadish Rental — premium wedding & event rental website (Gujarat). Bilingual EN/ગુજરાતી, dark/light mode, service detail pages with photo galleries, contact form, WhatsApp/Call CTAs. User asked to verify responsiveness across mobile/tablet/laptop and to confirm the refined color palette looks attractive in both modes."
+user_problem_statement: "Dwarkadhish Rental — premium wedding & event rental website (Gujarat). Bilingual EN/ગુજરાતી, dark/light mode, service detail pages with photo galleries, contact form, WhatsApp/Call CTAs. User asked to verify responsiveness across mobile/tablet/laptop and to confirm the refined color palette looks attractive in both modes."
 
 frontend:
   - task: "Responsive layout — Homepage (Hero, Services, Why-Us, Gallery, About, Contact, Footer)"
