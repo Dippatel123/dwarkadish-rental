@@ -184,9 +184,9 @@ export default function ServiceDetailPage({ params }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: (i % 3) * 0.05 }}
-                className={`relative overflow-hidden rounded-2xl group cursor-pointer ${i === 0 ? 'md:col-span-2 md:row-span-2 aspect-square md:aspect-auto' : 'aspect-square'}`}
+                className={`relative overflow-hidden rounded-2xl group cursor-pointer ${service.imageFit === 'contain' ? 'bg-white' : ''} ${i === 0 ? `md:col-span-2 md:row-span-2 aspect-square ${service.imageFit === 'contain' ? '' : 'md:aspect-auto'}` : 'aspect-square'}`}
               >
-                <Image src={src} alt={`${s.title} ${i + 1}`} fill className="object-cover group-hover:scale-110 transition-transform duration-700" sizes="(max-width: 768px) 50vw, 33vw" />
+                <Image src={src} alt={`${s.title} ${i + 1}`} fill className={`${service.imageFit === 'contain' ? 'object-contain p-6' : 'object-cover'} group-hover:scale-110 transition-transform duration-700`} sizes="(max-width: 768px) 50vw, 33vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-maroon-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-gold-gradient flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <ArrowRight className="w-4 h-4 text-maroon-900" />
@@ -252,8 +252,8 @@ export default function ServiceDetailPage({ params }) {
                 >
                   <Link href={`/services/${otherSlug}`}>
                     <Card className="group overflow-hidden h-full border-border/60 hover:border-gold-400/60 hover:shadow-luxe transition-all bg-card">
-                      <div className="relative h-32 md:h-40 overflow-hidden">
-                        <Image src={other.gallery[0]} alt={os.title} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 50vw, 25vw" />
+                      <div className={`relative h-32 md:h-40 overflow-hidden ${other.imageFit === 'contain' ? 'bg-white' : ''}`}>
+                        <Image src={other.gallery[0]} alt={os.title} fill className={`${other.imageFit === 'contain' ? 'object-contain p-4' : 'object-cover'} group-hover:scale-110 transition-transform duration-500`} sizes="(max-width: 768px) 50vw, 25vw" />
                         <div className="absolute inset-0 bg-gradient-to-t from-maroon-950/70 to-transparent" />
                       </div>
                       <div className="p-4">

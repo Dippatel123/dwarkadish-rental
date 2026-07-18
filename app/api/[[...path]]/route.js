@@ -1,19 +1,6 @@
 import { NextResponse } from 'next/server'
-import { MongoClient } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
 import nodemailer from 'nodemailer'
-
-const uri = process.env.MONGO_URL
-const dbName = process.env.DB_NAME || 'dwarkadhish_rental'
-
-let cachedClient = null
-async function getDb() {
-  if (!cachedClient) {
-    cachedClient = new MongoClient(uri)
-    await cachedClient.connect()
-  }
-  return cachedClient.db(dbName)
-}
 
 let cachedTransporter = null
 function getTransporter() {
@@ -32,7 +19,9 @@ function getTransporter() {
 
 async function sendInquiryEmail(doc) {
   const transporter = getTransporter()
-  if (!transporter) return
+  if (!transporter) {
+    throw new Error('Email is not configured. Set GMAIL_USER and GMAIL_APP_PASSWORD in .env.')
+  }
   const to = process.env.CONTACT_TO_EMAIL || process.env.GMAIL_USER
   await transporter.sendMail({
     from: `"Dwarkadhish Rental" <${process.env.GMAIL_USER}>`,
@@ -67,19 +56,10 @@ export async function OPTIONS() {
 export async function GET(request, { params }) {
   const resolved = await params
   const path = (resolved?.path || []).join('/')
-  try {
-    if (path === '' || path === 'health') {
-      return json({ ok: true, service: 'Dwarkadhish Rental API', time: new Date().toISOString() })
-    }
-    if (path === 'inquiries') {
-      const db = await getDb()
-      const items = await db.collection('inquiries').find({}).sort({ createdAt: -1 }).limit(100).toArray()
-      return json({ ok: true, items })
-    }
-    return json({ ok: false, error: 'Not found' }, 404)
-  } catch (e) {
-    return json({ ok: false, error: e.message }, 500)
+  if (path === '' || path === 'health') {
+    return json({ ok: true, service: 'Dwarkadhish Rental API', time: new Date().toISOString() })
   }
+  return json({ ok: false, error: 'Not found' }, 404)
 }
 
 export async function POST(request, { params }) {
@@ -92,7 +72,6 @@ export async function POST(request, { params }) {
       if (!name || !phone) {
         return json({ ok: false, error: 'Name and phone are required' }, 400)
       }
-      const db = await getDb()
       const doc = {
         id: uuidv4(),
         name: String(name).trim(),
@@ -102,14 +81,8 @@ export async function POST(request, { params }) {
         date: String(date || '').trim(),
         message: String(message || '').trim(),
         createdAt: new Date().toISOString(),
-        status: 'new',
       }
-      await db.collection('inquiries').insertOne(doc)
-      try {
-        await sendInquiryEmail(doc)
-      } catch (emailError) {
-        console.error('Failed to send inquiry email:', emailError.message)
-      }
+      await sendInquiryEmail(doc)
       return json({ ok: true, inquiry: doc })
     }
     return json({ ok: false, error: 'Not found' }, 404)
